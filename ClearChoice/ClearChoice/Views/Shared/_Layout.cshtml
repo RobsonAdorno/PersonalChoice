@@ -1,0 +1,64 @@
+﻿
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="description" content="Personal Choice" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Arquivo principal de CSS-->
+    <link href="~/Content/main.css" rel="stylesheet" type="text/css" />
+    <!-- Link para a fonte personalizada css-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Personal Choice</title>
+    <style>
+        .space {
+            margin-top: 10px;
+        }
+        .nav-link {
+            color:white !important;
+           
+        }
+     
+    </style>
+</head>
+
+<body class="app sidebar-mini rtl">
+    <header class="app-header">
+            <a class="app-header__logo" href="@Url.Action("Home", "Home")"> Personal Choice</a>
+            <ul class="app-nav ">
+                <li class="nav-item active">
+                    <a class="nav-link coloured-icon" href="@Url.Action("CadastrarPFView", "Cadastrar")"> Cadastra-se<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="@Url.Action("CadastrarPJView", "Cadastrar")"> Seja Parceiro</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="btn btn-danger" href="@Url.Action("Login", "Home")"> Entrar</a>
+                </li>
+            </ul>
+        
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    </header>
+
+                <div class="container body-content">
+                    @RenderBody()
+                    <hr />
+                    <footer>
+                        <p>&copy; @DateTime.Now.Year - Personal Choice</p>
+
+                    </footer>
+                </div>
+
+                <script src="~/Scripts/jquery.validate.min.js"></script>
+                <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+                @RenderSection("scripts", false)
+
+</body>
+</html>

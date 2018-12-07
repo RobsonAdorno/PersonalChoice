@@ -1,0 +1,143 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Arquivo principal de CSS-->
+    <link href="~/Content/main.css" rel="stylesheet" type="text/css" />
+	<link href="~/Content/card.css" rel="stylesheet" />
+
+    <!-- Link para a fonte personalizada css-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+    <body class="app sidebar-mini rtl">
+		@if (User.IsInRole("Administrador"))
+		{
+        <header class="app-header">
+            <a class="app-header__logo" href="@Url.Action("Main", "Main")">Personal Choice</a>
+            <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+            <!-- Navbar Right Menu-->
+            <ul class="app-nav">
+                <li class="app-search">
+                    <input class="app-search__input" type="search" placeholder="Pesquisar">
+                    <button class="app-search__button"><i class="fa fa-search"></i></button>
+                </li>
+                <!--User Menu-->
+                <li class="dropdown">
+                    <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+                    <ul class="dropdown-menu settings-menu dropdown-menu-right ">
+                        <li><a class="dropdown-item" href="@Url.Action("Logout", "Home")"><i class="fa fa-sign-out fa-lg"></i> Sair</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </header>
+        <!--Sidebar menu-->
+        <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+        <aside class="app-sidebar">
+            <div class="app-sidebar__user">
+                <img class="app-sidebar__user-avatar" src="~/Image/if_user_925901.png" alt="User Image">
+
+                <div>
+                    <p class="app-sidebar__user-name">@User.Identity.Name</p>
+                    <p class="app-sidebar__user-designation">Developer</p>
+                </div>
+            </div>
+            <ul class="app-menu">
+                <li><a class="app-menu__item " href="@Url.Action("Main", "Main")"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
+                <li><a class="app-menu__item " href="@Url.Action("ListagemUsuariosPFView", "Main")"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Usuários</span></a></li>
+                <li><a class="app-menu__item " href="@Url.Action("ExperienciaView", "Main")"><i class="app-menu__icon fa fa-suitcase"></i><span class="app-menu__label">Experiências</span></a></li>
+
+                <li class="treeview">
+
+                </li>
+            </ul>
+        </aside>
+		}
+		else
+		{
+			<header class="app-header">
+				<a class="app-header__logo" href="@Url.Action("Main", "Main")">Personal Choice</a>
+				<!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+				<!-- Navbar Right Menu-->
+				<ul class="app-nav">
+                 
+					<li class="app-search">
+						<input class="app-search__input" type="search" placeholder="Pesquisar">
+						<button class="app-search__button"><i class="fa fa-search"></i></button>
+					</li>
+					<!--User Menu-->
+					<li class="dropdown">
+						<a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+						<ul class="dropdown-menu settings-menu dropdown-menu-right ">
+							<li><a class="dropdown-item" href="@Url.Action("Logout", "Home")"><i class="fa fa-sign-out fa-lg"></i> Sair</a></li>
+						</ul>
+					</li>
+
+                    <li class="dropdown">
+                        <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu">
+                            <i>Categoria</i>
+                        </a>
+                        <ul class="dropdown-menu settings-menu dropdown-menu-right ">
+
+                            <li><a onclick="showUsuarioModal(1)" class="dropdown-item" id="1" href="@Url.Action("ListaExperienciasView", "Main", new { id = 1 })"><i class="fa fa-sign-out fa-lg"></i> Pizza</a></li>
+                            <li><a onclick="showUsuarioModal(2)" class="dropdown-item" id="2" href="@Url.Action("ListaExperienciasView", "Main", new { id = 2 })"><i class="fa fa-sign-out fa-lg"></i> Feijoada</a></li>
+                            <li><a onclick="showUsuarioModal(3)" class="dropdown-item" id="3" href="@Url.Action("ListaExperienciasView", "Main", new { id = 3 })"><i class="fa fa-sign-out fa-lg"></i> Feijão Tropero</a></li>
+                            <li><a onclick="showUsuarioModal(4)" class="dropdown-item" id="4" href="@Url.Action("ListaExperienciasView", "Main", new { id = 4 })"><i class="fa fa-sign-out fa-lg"></i> Carne de Porco</a></li>
+                            <li><a onclick="showUsuarioModal(5)" class="dropdown-item" id="5" href="@Url.Action("ListaExperienciasView", "Main", new { id = 5 })"><i class="fa fa-sign-out fa-lg"></i> Tapioca</a></li>
+                            <li><a onclick="showUsuarioModal(6)" class="dropdown-item" id="6" href="@Url.Action("ListaExperienciasView", "Main", new { id = 6 })"><i class="fa fa-sign-out fa-lg"></i> Acarajé</a></li>
+                        </ul>
+                    </li>
+                  
+				</ul>
+			</header>
+
+			 <!--Sidebar menu-->
+			<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+			<aside class="app-sidebar">
+				<div class="app-sidebar__user">
+					<img class="app-sidebar__user-avatar" src="~/Image/if_user_925901.png" alt="User Image">
+					<div>
+						<p class="app-sidebar__user-name">@User.Identity.Name</p>
+						<p class="app-sidebar__user-designation">Usuário</p>
+					</div>
+				</div>
+				<ul class="app-menu">
+					
+                    <li><a class="app-menu__item " href="@Url.Action("Main", "Main")"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
+                    <li><a class="app-menu__item " href="@Url.Action("ListaExperienciasView", "Main")"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Experiências</span></a></li>
+                    <li><a class="app-menu__item " href="@Url.Action("PerfilUsuario", "Main")"><i class="app-menu__icon fa fa-suitcase"></i><span class="app-menu__label">Perfil</span></a></li>
+					<li class="treeview">
+
+					</li>
+				</ul>
+			</aside>
+		}
+
+		<!-- JavaScripts obrigatórios para a aplicação funcionar-->
+        <script src="~/Scripts/App/listagemUsuariosPF.js"></script>
+		<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+		<script src="~/Scripts/popper.min.js"></script>
+		<script src="~/Scripts/bootstrap.min.js"></script>
+		<script src="~/Scripts/main.js"></script>
+		<!-- The javascript plugin to display page loading on top-->
+		<script src="~/Scripts/Plugins/pace.min.js"></script>
+		<script src="~/Scripts/Plugins/chart.js"></script>
+		
+        
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/Plugins/jquery.dataTables.min.js"></script>
+        <script src="~/Scripts/Plugins/dataTables.bootstrap.min.js"></script>
+        
+        @RenderSection("scripts", false)
+
+        @RenderBody()
+       
+    </body>
+</html>

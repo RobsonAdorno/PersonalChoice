@@ -1,0 +1,144 @@
+﻿@using ClearChoice.Model
+@using ClearChoice.DAL
+@model List<PessoaFisica>
+
+@{
+    Layout = "~/Views/Shared/_LayoutDash.cshtml";
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListagemUsuariosPFView</title>
+</head>
+<body>
+    <main class="app-content">
+        <div class="app-title">
+            <div>
+                <h1><i class="fa fa-th-list"></i> Usuários Cadastrados</h1>
+                <p>Aqui está os detalhes de todos os usuários da aplicação</p>
+            </div>
+            <ul class="app-breadcrumb breadcrumb side">
+                <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+                <li class="breadcrumb-item">Usuários</li>
+
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="dataTables_length" id="sampleTable_length">
+                                        <label>
+                                            Aparecer
+                                            <select name="sampleTable_length" aria-controls="sampleTable" class="form-control form-control-sm">
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select> registros
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div id="sampleTable_filter" class="dataTables_filter">
+                                        <label>
+                                            Pesquisar:
+                                            <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="sampleTable">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                        <thead>
+
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 152px;">Nome</th>
+                                                <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 253px;">Login</th>
+                                                <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 54px;">Email</th>
+                                                <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 107px;">RG</th>
+                                            </tr>
+
+                                        </thead>
+                                        @foreach (PessoaFisica item in Model)
+                                        {
+                                            <tr onclick="showUsuarioModal(@item.ID)">
+                                                <td>@item.Nome</td>
+                                                <td>@item.Login</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.RG</td>
+
+                                            </tr>
+
+                                        }
+                                        <tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-5">
+                                    <div class="dataTables_info" id="sampleTable_info" role="status" aria-live="polite">Mostrando 1 até 10 de @Model.Count itens</div>
+                                </div>
+                                <div class="col-sm-12 col-md-7">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="sampleTable_paginate">
+                                        <ul class="pagination">
+
+                                            <li class="paginate_button page-item active">
+                                                <a href="#" aria-controls="sampleTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    @Html.BeginForm(){ 
+    <div class="modal fade overlay" id="usuarioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content tile">
+                    <div id="modal-loading" class="overlay">
+                        <div class="m-loader mr-4">
+                            <svg class="m-circular" viewBox="25 25 50 50">
+                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10" />
+                            </svg>
+                        </div>
+                        <h3 class="l-text">Carregando</h3>
+                    </div>
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exitButton"></h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+
+                    <div id="modal-body" class="modal-body">
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary" formaction="Alterar">Alterar</button>
+                        <button type="submit" class="btn btn-primary" formaction="Remover">Remover</button>
+                       
+                    </div>
+                </div>
+            </div>
+    </div>
+    }
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+    <script src="~/Scripts/App/listagemUsuariosPF.js"></script>
+
+</body>
+</html>

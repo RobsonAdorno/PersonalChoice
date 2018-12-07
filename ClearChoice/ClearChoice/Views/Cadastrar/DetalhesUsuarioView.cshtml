@@ -1,0 +1,26 @@
+﻿@using ClearChoice.Model
+@model PessoaFisica
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <h3 class="tile-title">Detalhes</h3>
+            <div class="tile-body">
+                <form>
+                    <div class="form-group">
+                        <input class="form-control" id="ID" name="ID" type="hidden" value=@Model.ID>
+                        <label class="control-label">Nome</label>
+                        <input class="form-control" id="Nome" name="Nome" type="text" value='@Model.Nome'>
+                        <label class="control-label">Login</label>
+                        <input class="form-control" id="Login" readonly="true" name="Login" type="text" value='@Model.Login'>
+                        <label class="control-label">Email</label>
+                        <input class="form-control" id="Email" name="Email" type="text" value='@Model.Email'>
+                        <label class="control-label">RG</label>
+                        <input class="form-control" id="RG" name="RG" type="text" value=' @Model.RG'>
+                        <input class="form-control" id="Senha" name="Senha" type="hidden" value='@Model.Senha'>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

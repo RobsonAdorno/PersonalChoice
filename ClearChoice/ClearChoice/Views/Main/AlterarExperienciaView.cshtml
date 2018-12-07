@@ -1,0 +1,172 @@
+﻿@model ClearChoice.Model.Experiencia
+@using ClearChoice.DAL
+@using ClearChoice.Model
+@{
+    Layout = "~/Views/Shared/_LayoutDash.cshtml";
+}
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <title></title>
+
+    <meta charset="UTF-8" />
+
+
+</head>
+
+<body class="app sidebar-mini rtl">
+    <main class="app-content">
+        <div class="app-title">
+            <div>
+                <h1><i class="fa fa-suitcase"></i> Experiências</h1>
+                <p>Seção de experiências, como administrador você tem a opção de cadastrar novas experiências...</p>
+            </div>
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+                <li class="breadcrumb-item"><a href="#">Experiências</a></li>
+            </ul>
+        </div>
+
+    </main>
+
+    @using (Html.BeginForm("AlterarExperienciaView", "Main", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+    <div class="modal fade overlay" id="usuarioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content tile">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exitButton"></h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+
+                <div id="modal-body" class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="tile">
+                                <h3 class="tile-title">Cadastre uma nova experiência</h3>
+
+                                <div class="tile-body">
+                                    <form>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-10">
+                                                @Html.HiddenFor(model => model.ID)
+                                                @Html.Label("Experiência", new { @class = "control-label" })
+                                                @Html.TextBoxFor(model => model.NomeExperiencia, new { @class = "form-control" })
+                                            </div>
+                                            <div class="col-sm-10">
+                                                @Html.LabelFor(model => model.Avaliacao, new { @class = "contro-label" })
+                                                @Html.TextBoxFor(model => model.Avaliacao, new { @class = "rating", @id = "kartik" })
+                                            </div>
+                                            <div class="col-sm-10">
+                                                @Html.LabelFor(model => model.Cidade, new { @class = "contro-label" })
+                                                @Html.TextBoxFor(model => model.Cidade, new { @class = "form-control" })
+                                            </div>
+                                            <div class="col-sm-10">
+                                                @Html.LabelFor(model => model.Descricao, new { @class = "control-label" })
+                                                @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control" })
+                                            </div>
+                                            
+                                                
+                                            </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <a href="@Url.Action("Main", "Main")" class="btn btn-secondary">Fechar</a>
+                    <button type="submit" class="btn btn-success" formaction="Cadastrar">Cadastrar</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+    <script src="~/Scripts/Rating/star-rating.min.js"></script>
+    <script>
+                $(document).ready(function () {
+                    showUsuarioModal();
+                });
+
+                function showUsuarioModal() {
+                    $("#usuarioModal").modal({
+                        show: true
+                    });
+                }
+
+                jQuery(document).ready(function () {
+                    $("#input-21f").rating({
+                        starCaptions: function (val) {
+                            if (val < 3) {
+                                return val;
+                            } else {
+                                return 'high';
+                            }
+                        },
+                        starCaptionClasses: function (val) {
+                            if (val < 3) {
+                                return 'label label-danger';
+                            } else {
+                                return 'label label-success';
+                            }
+                        },
+                        hoverOnClear: false
+                    });
+                    var $inp = $('#rating-input');
+
+                    $inp.rating({
+                        min: 0,
+                        max: 5,
+                        step: 1,
+                        size: 'lg',
+                        showClear: false
+                    });
+
+                    $('#btn-rating-input').on('click', function () {
+                        $inp.rating('refresh', {
+                            showClear: true,
+                            disabled: !$inp.attr('disabled')
+                        });
+                    });
+
+
+                    $('.btn-danger').on('click', function () {
+                        $("#kartik").rating('destroy');
+                    });
+
+                    $('.btn-success').on('click', function () {
+                        $("#kartik").rating('create');
+                    });
+
+                    $inp.on('rating.change', function () {
+                        alert($('#rating-input').val());
+                    });
+
+
+                    $('.rb-rating').rating({
+                        'showCaption': true,
+                        'stars': '3',
+                        'min': '0',
+                        'max': '3',
+                        'step': '1',
+                        'size': 'xs',
+                        'starCaptions': { 0: 'status:nix', 1: 'status:wackelt', 2: 'status:geht', 3: 'status:laeuft' }
+                    });
+                    $("#input-21c").rating({
+                        min: 0, max: 8, step: 0.5, size: "xl", stars: "8"
+                    });
+                });
+    </script>
+</body>
+
+</html>

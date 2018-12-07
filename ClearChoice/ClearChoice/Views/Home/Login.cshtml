@@ -1,0 +1,203 @@
+﻿@model  ClearChoice.ViewModel.ValidacaoLogin
+
+
+<!DOCTYPE html>
+<html lang="pt-br" class="body-full-height">
+<head>
+    <!-- META SECTION -->
+    <title>Personal Choice</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+    <link href="~/Content/compiled-4.5.2.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link href="~/Content/cssCarousel/adventureMain.css" rel="stylesheet" />
+    <link href="~/Content/animate/main.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Content/animate/util.css" />    
+    <!-- END META SECTION -->
+    <!-- CSS INCLUDE -->
+    <!-- EOF CSS INCLUDE -->
+    <style>
+    .contact100-form-btn {
+   
+    min-width: 329px;
+    
+    }
+
+    .container-contact100-form-btn {
+  
+  margin-top: 0px;
+}
+    .black-text,.btn.btn-link,.toast-close-button:focus,.toast-close-button:hover {
+ color:#fff!important
+}
+        </style>
+</head>
+<body>
+    <header class="default-header">
+        <nav class="navbar navbar-expand-lg  navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="img/logo.png" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="text-white lnr lnr-menu"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li><a href="@Url.Action("Home", "Home")">Home</a></li>
+                        <li><a href="@Url.Action("CadastrarPFView", "Cadastrar")">Cadastrar-se</a></li>
+                        <li><a href="@Url.Action("CadastrarPJView", "Cadastrar")">Torne-se parceiro</a></li>
+                        <li><a href="@Url.Action("Login", "Home")">Entrar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    @if (TempData["success"] != null || TempData["error"] != null)
+    {
+        <input type="hidden" id="success"
+               value="@TempData["success"]" />
+            
+                <input type="hidden" id="error"
+                       value="@TempData["error"]" />
+    }
+    <div class="login-container">
+        
+        @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "login-form" }))
+        {
+
+           
+
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.urlRetorno)
+
+            </div>
+
+            <div class="login-box animated fadeInDown">
+                
+                <div class="login-body">
+                    
+                    <div class="login-title"><strong>Seja bem vindo</strong>, Realize o Login</div>
+                    <form action="index.html" class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", placeholder = "Login", autofocus = "autofocus" } })
+                                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", placeholder = "Senha" } })
+                                @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <a href="#" class="btn btn-link btn-block" onclick="showUsuarioModal()" data-toggle="usuarioModal" data-target="#usuarioModal">Esqueceu a senha?</a>
+                                
+                                <!--<input value="Esqueceu a senha" id="MyButton" onclick="showUsuarioModal()">-->
+                            </div>
+                            <div class="col-md-6" >
+                                <div class="container-contact100-form-btn">
+                                    <button class="contact100-form-btn">
+                                        <span>
+                                            Entrar
+                                            <i class="fa fa-long-arrow-right m-l-7 col-md-6" aria-hidden="true"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+               
+
+                <div class="login-footer">
+                    <div class="pull-left">
+                        &copy; @DateTime.Now.Year Personal Choice
+                    </div>
+                    <div class="pull-right">
+                        <a class="scrollSuave" href="http://localhost:54444/Home/Home#rodape">Sobre</a> |
+                        <a class="scrollSuave" href="http://localhost:54444/Home/Home#rodape">Privacidade</a> |
+                        <a class="scrollSuave" href="http://localhost:54444/Home/Home#rodape">Nos contate</a>
+                    </div>
+                </div>
+            </div>
+
+           
+                }
+            </div>
+    @using (Html.BeginForm("EnvioEmailView", "Home", FormMethod.Get, new { @class = "login-form" }))
+    {
+        <link href="~/Content/theme-default.css" rel="stylesheet" id="theme" type="text/css" />
+          
+        <div class="modal fade" id="usuarioModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+                
+                <div class="modal-content">
+
+                    <div class="modal-body text-center mb-1">
+
+                        <h5 class="mt-1 mb-2">Personal Choice</h5>
+
+                        <div class="md-form ml-0 mr-0" data-validate = "Valid email is required: ex@abc.xyz">
+                            <label data-error="wrong" data-success="right" for="form29" class="ml-0">Email</label>
+                            <input type="text" id="form29" class="form-control form-control-sm validate ml-0" >
+                            
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button class="btn btn-cyan mt-1">Login <i class="fa fa-sign-in ml-1"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+               
+            </div>
+        </div>
+        
+    }
+    
+    <script>
+        function showUsuarioModal() {
+            $("#usuarioModal").modal({
+                show: true
+            });
+        }
+
+        var $doc = $('html, body');
+        $('.scrollSuave').click(function () {
+            $doc.animate({
+                scrollTop: $($.attr(this, 'href')).offset().top
+            }, 500);
+            return false;
+        });
+    </script>
+    
+                    <!-- JavaScripts obrigatórios para a aplicação funcionar-->
+                    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
+                    <script src="~/Scripts/popper.min.js"></script>
+                    <script src="~/Scripts/bootstrap.min.js"></script>
+                    <script src="~/Scripts/main.js"></script>
+                    <!-- The javascript plugin to display page loading on top-->
+                    <script src="~/Scripts/Plugins/pace.min.js"></script>
+                    <script src="~/Scripts/Plugins/chart.js"></script>
+
+                    <script src="~/Scripts/jquery.validate.min.js"></script>
+                    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+                    <script src="~/Scripts/Plugins/jquery.dataTables.min.js"></script>
+                    <script src="~/Scripts/Plugins/dataTables.bootstrap.min.js"></script>
+                    <script src="~/Scripts/App/toast.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+    
+</body>
+</html>
